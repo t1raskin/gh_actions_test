@@ -1,0 +1,30 @@
+name: changelog_updates
+on:
+  pull_request:
+    branches: [master]
+jobs:
+  deploy:
+    name: Verify Changelog file updated
+    runs-on: ububtu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 2
+    - shell: pwsh
+      id: changelog_verification
+      run: |
+        # Diff HEAD with the previous commit
+        $diff = git diff --name-only HEAD^ HEAD
+
+        # Check if a file CHANGELOG.md has been changed (added, modified, deleted)
+        $SourceDiff = $diff | Where-Object { $_ -match 'CHANGELOG.md$' }
+        $HasDiff = $SourceDiff.Length -gt 0
+
+        # Set the output named "changelog_changed"
+        Write-Host "::set-output name=changelog_changed::$HasDiff"
+
+      # Run the step only with "changelog_changed" equals "False"
+        - shell: pwsh
+        # steps.<step_id>.outputs.<output name>
+        if: steps.check_file_changed.outputs.changelog_changed == 'False'
+        run: exit 1
