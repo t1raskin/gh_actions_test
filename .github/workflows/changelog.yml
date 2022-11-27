@@ -23,8 +23,9 @@ jobs:
           files: |
             CHANGELOG.md
 
-      - name: Run step only when files change.
+      - name: Run step only when files doesnt change.
         if: steps.verify-changed-files.outputs.files_changed == 'false'
         run: |
           exit 1
           echo "Changelog doesnt contain new entry, please update the changes done in this PR"
+          echo "Changed files: ${{ steps.verify-changed-files.outputs.changed_files }}"
