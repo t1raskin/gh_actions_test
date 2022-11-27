@@ -21,7 +21,7 @@ jobs:
         id: verify-changed-files
         with:
           files: |
-            CHANGELOG.md
+            *.md
 
       - name: Run step only when files doesnt change.
         if: steps.verify-changed-files.outputs.files_changed == 'false'
