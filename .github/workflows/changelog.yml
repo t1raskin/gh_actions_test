@@ -15,7 +15,7 @@ on:
             with:
               fetch-depth: 2
           - name: Verify Changed Changelog
-              uses: tj-actions/verify-changed-files@v7.1
+              uses: tj-actions/verify-changed-files@v12
               id: verify-changed-files
               with:
                 files: |
