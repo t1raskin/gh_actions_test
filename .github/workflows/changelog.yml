@@ -11,18 +11,18 @@ jobs:
     runs-on: ububtu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 2
-    - name: Verify Changed Changelog
-        uses: tj-actions/verify-changed-files@v12
-        id: verify-changed-files
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-          files: |
-            CHANGELOG.md
-          - name: Run step only when files change.
-            if: steps.verify-changed-files.outputs.files_changed == 'false'
-            run: |
-              exit 1
-              echo "Changelog doesnt contain new entry, please update the changes done in this PR"
+          fetch-depth: 2
+      - name: Verify Changed Changelog
+          uses: tj-actions/verify-changed-files@v12
+          id: verify-changed-files
+          with:
+            files: |
+              CHANGELOG.md
+            - name: Run step only when files change.
+              if: steps.verify-changed-files.outputs.files_changed == 'false'
+              run: |
+                exit 1
+                echo "Changelog doesnt contain new entry, please update the changes done in this PR"
