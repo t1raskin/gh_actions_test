@@ -14,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
 #      - name: Verify Changed Changelog
 #        uses: nice-cxone/github-actions-shared/git/changed-files@master
@@ -33,6 +33,5 @@ jobs:
       - name: Run step only when files doesnt change.
         if: steps.verify-changed-files.outputs.files_changed != null
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed"
-          done
+          echo "One or more files in the docs folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
