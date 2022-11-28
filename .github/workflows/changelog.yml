@@ -25,10 +25,6 @@ jobs:
       - name: Verify Changed Changelog
         uses: tj-actions/verify-changed-files@v12
         id: verify-changed-files
-        with:
-          files: |
-            *.md
-            *.js
 
       - name: Run step only when files doesnt change.
         if: steps.verify-changed-files.outputs.files_changed != null
