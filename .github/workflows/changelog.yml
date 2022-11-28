@@ -31,7 +31,7 @@ jobs:
             *.js
 
       - name: Run step only when files doesnt change.
-        if: steps.verify-changed-files.outputs.files_changed == 'false'
+        if: steps.verify-changed-files.outputs.files_changed != null
         run: |
           exit 1
           echo "Changelog doesnt contain new entry, please update the changes done in this PR"
