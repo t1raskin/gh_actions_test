@@ -23,7 +23,8 @@ jobs:
 #          files: |
 #            *.md
 #            *.js
-      - uses: nice-cxone/github-actions-shared/git/changed-files@master
+      - name: Verify Changed Changelog
+        uses: nice-cxone/github-actions-shared/git/changed-files@master
         id: verify-changed-files
         with:
           file-path: "*.md"
