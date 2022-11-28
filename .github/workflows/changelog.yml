@@ -12,21 +12,25 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 2
 
-      - name: Verify Changed Changelog
-        uses: tj-actions/verify-changed-files@v12
+#      - name: Verify Changed Changelog
+#        uses: tj-actions/verify-changed-files@v12
+#        id: verify-changed-files
+#        with:
+#          files: |
+#            *.md
+#            *.js
+      - uses: nice-cxone/github-actions-shared/git/changed-files@master
         id: verify-changed-files
         with:
-          files: |
-            *.md
-            *.js
+          file-path: "*.md"
 
       - name: Run step only when files doesnt change.
-        if: steps.verify-changed-files.outputs.files_changed == 'false'
+#        if: steps.verify-changed-files.outputs.files_changed == 'false'
         run: |
-          exit 1
-          echo "Changelog doesnt contain new entry, please update the changes done in this PR"
-          echo "Changed files: ${{ steps.verify-changed-files.outputs.changed_files }}"
+#          exit 1
+#          echo "Changelog doesnt contain new entry, please update the changes done in this PR"
+          echo "Changed files: ${{ steps.verify-changed-files.outputs.files }}"
