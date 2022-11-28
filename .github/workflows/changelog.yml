@@ -16,22 +16,15 @@ jobs:
         with:
           fetch-depth: 2
 
-#      - name: Verify Changed Changelog
-#        uses: tj-actions/verify-changed-files@v12
-#        id: verify-changed-files
-#        with:
-#          files: |
-#            *.md
-#            *.js
       - name: Verify Changed Changelog
         uses: nice-cxone/github-actions-shared/git/changed-files@master
         id: verify-changed-files
         with:
           file-path: "*.md"
 
-      - name: Run step only when files doesnt change.
+#      - name: Run step only when files doesnt change.
 #        if: steps.verify-changed-files.outputs.files_changed == 'false'
-        run: |
+#        run: |
 #          exit 1
 #          echo "Changelog doesnt contain new entry, please update the changes done in this PR"
-          echo "Changed files: ${{ steps.verify-changed-files.outputs.files }}"
+#          echo "Changed files: ${{ steps.verify-changed-files.outputs.files }}"
