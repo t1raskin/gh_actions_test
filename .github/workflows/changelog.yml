@@ -23,12 +23,13 @@ jobs:
 #          file-path: "*.md"
 
       - name: Verify Changed Changelog
-        uses: tj-actions/verify-changed-files@v12
+        uses: jitterbit/get-changed-files@v1
         id: verify-changed-files
 
       - name: Run step only when files doesnt change.
         if: steps.verify-changed-files.outputs.files_changed != null
         run: |
           echo "One or more files in the docs folder has changed."
+          echo "${{ github.event.head_commit.message }}"
           echo "steps.changed-files-specific.outputs: ${{ steps.changed-files-specific.outputs }}"
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
