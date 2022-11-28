@@ -35,4 +35,4 @@ jobs:
         run: |
           exit 1
           echo "Changelog doesnt contain new entry, please update the changes done in this PR"
-          echo "Changed files: ${{ steps.verify-changed-files.outputs.files_changed }}"
+          echo "Changed files: ${{ steps.verify-changed-files.outputs.all_changed_files  }}"
