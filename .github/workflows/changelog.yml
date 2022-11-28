@@ -14,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          fetch-depth: 2
 
 #      - name: Verify Changed Changelog
 #        uses: nice-cxone/github-actions-shared/git/changed-files@master
