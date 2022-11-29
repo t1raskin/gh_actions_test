@@ -20,7 +20,7 @@ jobs:
         uses: tj-actions/changed-files@v34
         with:
           files: |
-            CHANGELOG.md
+            CHANGELOG1.md
 
       - name: Run step if MD file was changed
         if: steps.changed-files-specific.outputs.any_changed == 'true'
