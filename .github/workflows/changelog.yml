@@ -30,11 +30,7 @@ jobs:
       - name: Run step only when files doesnt change.
         #if: steps.verify-changed-files.outputs.files_changed != null
         run: |
-          echo "One or more files in the docs folder has changed."
-          MSG=$(git log --format=%B -n 1 ${{github.event.after}})
-          echo "${MSG}"
-          echo "steps.changed-files-specific.outputs: ${{ steps.changed-files-specific.outputs }}"
-          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "Do something with this ${changed_file}."
-          done
+          mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.added_modified }}')
+              for added_modified_file in "${added_modified_files[@]}"; do
+                echo "Do something with this ${added_modified_file}."
+              done
