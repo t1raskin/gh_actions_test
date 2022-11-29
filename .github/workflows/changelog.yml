@@ -25,12 +25,11 @@ jobs:
 
       - name: Verify Changed Changelog
         uses: jitterbit/get-changed-files@v1
-        id: verify-changed-files
-
-      - name: Run step only when files doesnt change.
-        #if: steps.verify-changed-files.outputs.files_changed != null
-        run: |
+        id: files
+        with:
+          format: 'csv'
+      - run: |
           mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.added_modified }}')
-              for added_modified_file in "${added_modified_files[@]}"; do
-                echo "Do something with this ${added_modified_file}."
-              done
+          for added_modified_file in "${added_modified_files[@]}"; do
+            echo "Do something with this ${added_modified_file}."
+          done
