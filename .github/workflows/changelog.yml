@@ -27,7 +27,7 @@ jobs:
         id: verify-changed-files
 
       - name: Run step only when files doesnt change.
-        if: steps.verify-changed-files.outputs.files_changed != null
+        #if: steps.verify-changed-files.outputs.files_changed != null
         run: |
           echo "One or more files in the docs folder has changed."
           echo "${{ github.event.head_commit.message }}"
