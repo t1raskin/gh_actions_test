@@ -33,3 +33,6 @@ jobs:
           echo "${{ github.event.head_commit.message }}"
           echo "steps.changed-files-specific.outputs: ${{ steps.changed-files-specific.outputs }}"
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          for changed_file in ${{ steps.files.outputs.all }}; do
+            echo "Do something with this ${changed_file}."
+          done
