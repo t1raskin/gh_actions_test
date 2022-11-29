@@ -7,29 +7,23 @@ on:
 
 jobs:
   build:
-    #name: Verify Changelog file updated
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: ${{github.event.after}}
 
-#      - name: Verify Changed Changelog
-#        uses: nice-cxone/github-actions-shared/git/changed-files@master
-#        id: verify-changed-files
-#        with:
-#          file-path: "*.md"
+      - name: Get changed files in the docs folder
+          id: changed-files-specific
+          uses: tj-actions/changed-files@v34
+          with:
+            files: |
+              *.md
 
-      - name: Verify Changed Changelog
-        uses: jitterbit/get-changed-files@v1
-        id: files
-        with:
-          format: 'csv'
-      - run: |
-          mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.added_modified }}')
-          for added_modified_file in "${added_modified_files[@]}"; do
-            echo "Do something with this ${added_modified_file}."
-          done
+            - name: Run step if MD file was changed
+              if: steps.changed-files-specific.outputs.any_changed == 'true'
+              run: |
+                echo "One or more files in the docs folder has changed."
+                echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
