@@ -32,7 +32,7 @@ jobs:
         run: |
           echo "One or more files in the docs folder has changed."
           MSG=$(git log --format=%B -n 1 ${{github.event.after}})
-          echo "::set-env name=COMMIT_MESSAGE::${MSG}"
+          echo "${MSG}"
           echo "steps.changed-files-specific.outputs: ${{ steps.changed-files-specific.outputs }}"
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
           for changed_file in ${{ steps.files.outputs.all }}; do
