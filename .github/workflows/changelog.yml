@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          ref: ${{github.event.after}}
 
 #      - name: Verify Changed Changelog
 #        uses: nice-cxone/github-actions-shared/git/changed-files@master
