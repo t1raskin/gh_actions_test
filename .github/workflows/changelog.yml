@@ -7,25 +7,24 @@ on:
 
 jobs:
   build:
-    #name: Verify Changelog file updated
-    runs-on: ububtu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
-      - name: Verify Changed Changelog
-        uses: tj-actions/verify-changed-files@v12
-        id: verify-changed-files
+      - name: Check if CHANGELOG.md file was changed
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v34
         with:
           files: |
             CHANGELOG.md
+            changelog.md
 
-      - name: Run step only when files change.
-        if: steps.verify-changed-files.outputs.files_changed == 'false'
-        #comment
+      - name: Run step if CHANGELOG.md file wasnt changed
+        if: steps.changed-files-specific.outputs.any_changed == 'false'
         run: |
+          echo "CHANGELOG.md file wasnt changed."
           exit 1
-          echo "Changelog doesnt contain new entry, please update the changes done in this PR"
