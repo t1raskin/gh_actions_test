@@ -15,6 +15,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: check DevOps script
+        uses: nice-cxone/github-actions-shared/git/changed-files@master
+        with:
+          file-path: "*.md"
+
       - name: Check if CHANGELOG.md file was changed
         id: changed-files-specific
         uses: tj-actions/changed-files@v34
